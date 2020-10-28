@@ -89,18 +89,6 @@ if (b > a) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 #----------------
 ## BONUS
 
@@ -108,6 +96,110 @@ RW <- arima.sim(model = list(order = c(0,1,0)), n=100)
 ts.plot(RW)
 RWd <- diff(RW)
 ts.plot(RWd)
+
+#nao eh for porque eu nao sei quantas vezes vou fazer
+#tem que ser um while
+#pra parar quando chegar no acucar
+# t maximo = 150
+
+#setting up the variables (length, angle, position)
+S <- runif(1, 0, 2)
+angle <- runif(1, 0, 2*pi)
+position <- matrix(c(runif(1, -9, 9), runif(1, -9, 9)), 2, 1)
+
+angle_change <- matrix(c(cos(angle),sin(angle)), 2, 1)
+
+#next step:
+position_new <- position + S * angle_change
+
+# vou fazer uma funcao entao, e correr ela pras 20 bacterias:
+
+BacRW <- funtion(p)
+
+#########AQUAQUIQUAIQUAQIIIIIIIII-----
+
+walk.2d<-function(n)
+{
+        rw <- matrix(0, ncol = 2, nrow = n)
+
+        # generate the indices to set the deltas
+        indx <- cbind(seq(n), sample(c(1, 2), n, TRUE))
+
+        # now set the values
+        rw[indx] <- sample(c(-1, 1), 2, TRUE)
+
+        # cumsum the columns
+        rw[,1] <- cumsum(rw[, 1])
+        rw[,2] <- cumsum(rw[, 2])
+
+        rw  # return value
+}
+
+
+#------------
+
+n <- 10000
+rw <- matrix(0, ncol = 2, nrow = n)
+# generate the indices to set the deltas
+indx <- cbind(seq(n), sample(c(1, 2), n, TRUE))
+
+# now set the values
+rw[indx] <- sample(c(-1, 1), n, TRUE)
+# cumsum the columns
+rw[,1] <- cumsum(rw[, 1])
+rw[, 2] <- cumsum(rw[, 2])
+
+plot(0,type="n",xlab="x",ylab="y",main="Random Walk Simulation
+In Two Dimensions",col=1:10,xlim=range(rw[,1]),ylim=range(rw[,2]))
+
+
+
+
+
+n<-1000
+
+rw <- walk.2d(n)
+plot(0, type="n",xlab="x",ylab="y",main="Random Walk Simulation In
+Two Dimensions",xlim=range(rw[,1]),ylim=range(rw[,2]))
+
+# use 'segments' to color each path
+segments(head(rw[, 1], -1), head(rw[, 2], -1), tail(rw[, 1], -1), tail(rw[,
+                                                                          2], -1), col ="blue")
+
+
+source(url("http://aliquote.org/pub/spin_plot.R"))
+dd <- replicate(3, rnorm(100))
+spin.plot(dd)
+
+
+
+
+
+
+
+
+
+###----- graph----
+# update every loop?
+# update every "x" loops?
+# update data on plot dynamically!!
+
+
+#points()
+#lines()
+
+# package magick
+
+# from discussionforum: https://towardsdatascience.com/animating-your-data-visualizations-like-a-boss-using-r-f94ae20843e3
+
+
+
+
+
+
+
+
+
 
 
 
