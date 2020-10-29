@@ -1,0 +1,105 @@
+---
+title: "STAT 6210 - Homework 4"
+author: "Ana Gabriela Itokazu"
+date: "due date: Oct 30, 2020"
+output:
+     prettydoc::html_pretty:
+          theme: tactile
+          highlight: github
+---
+
+```{r chunksetup, include=FALSE}
+knitr::opts_chunk$set(
+   echo=TRUE, eval=TRUE, include=TRUE,
+   warning=FALSE, message=FALSE,
+   fig.align="center"
+)
+```
+
+```{r clear_genv, echo=FALSE}
+rm(list = ls())
+library(tidyverse)
+library(knitr)
+```
+
+```{css, echo=FALSE}
+ 
+     .image {
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+          width: 90%;
+}
+
+     .textbox {
+          padding: 1em;
+          background: lightgrey;
+}
+```
+
+<div style="text-align: center">
+
+Final `.html` file knitted in October 30, 2020 (source code available in [Github](https://github.com/AU-R-Programming/HW4-Gabii)).
+
+</div>
+
+***
+
+<div style="text-align: justify">
+
+### Royal Blood:
+
+I could make it work with ifelse's in a function:
+
+</div>
+
+```{r royal1, results = FALSE}
+
+blob <- function(a){
+     print(ifelse(a%%3==0 && a%%5==0, "Royal Blood",
+                  ifelse(a%%3==0, "Royal",
+                         ifelse(a%%5==0, "Blood", a))))
+}
+
+blub <- Vectorize(blob)
+q1 <- blub(1:1000)
+
+```
+
+Or in a for loop using the same logic:
+
+```{r royal2, eval=FALSE}
+
+for (a in seq(1000)) {
+     if (a%%3==0 && a%%5==0) {
+          print("Royal Blood")
+     } else if (a%%3==0){
+          print("Royal")
+     } else if (a%%5==0){
+          print("Blood")
+     } else
+          print(a)
+}
+```
+
+Then we'll get something like this:
+
+<div class="textbox" id="royalbloodshow">
+
+`r q1[1:35]`, ...
+
+</div>
+
+<div style="text-align: justify">
+
+### Let's get things in order:
+
+I could make it work with ifelse's in a function:
+
+</div>
+
+
+
+
+
+

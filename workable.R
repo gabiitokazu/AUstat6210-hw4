@@ -47,7 +47,7 @@ for (a in seq(1000)) {
 
 #q2:
 
-a <- c(2,6,3,9,4,5)
+a <- c(9,5,2,6,3,-9,4,5,-6,2,8,34,89,6)
 print(a)
 
 for (i in (1:length(a))) {
@@ -65,9 +65,40 @@ print(a)
 #q3:
 
 f <- function(x) x^2 - 2*x +1
+tol <- 1e-5
+dif <- tol - 1
 x1 = -1
 x3 = 3
+f_old <- f(x1)
 
+
+
+
+#---- q4: survival group:
+
+while(dif<tol){
+                x2 <- runif(1, x1,x3)
+                f_new <- f(x2)
+
+                b <- abs(x3 - x2)
+                a <- abs(x2 - x1)
+
+                dif_temp <- f_old - f_new
+
+                if(dif_temp >0){
+                        dif <- dif_temp
+                        f_old <- f_new
+                }
+                        if(a>b){
+                                x3 <- x2
+                        } else {
+                                x1 <- x2
+                        }
+}
+
+print(f_new)
+
+#-----
 set.seed(123)
 x2 <- runif(1, -1, 3)
 
@@ -75,8 +106,7 @@ f1 <- f(x1)
 f2 <- f(x2)
 f3 <- f(x3)
 
-b <- x3 - x2
-a <- x2 - x1
+
 
 if (b > a) {
      x4 <- runif(1, x2, x3)
@@ -115,6 +145,11 @@ position_new <- position + S * angle_change
 # vou fazer uma funcao entao, e correr ela pras 20 bacterias:
 
 BacRW <- funtion(p)
+
+
+#-------
+
+
 
 #########AQUAQUIQUAIQUAQIIIIIIIII-----
 
