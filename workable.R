@@ -168,6 +168,40 @@ print(i_1[2])
 print(f(i_1[2]))
 
 
+## ------------------------
+##
+
+f <- function(x) x^2 - 2*x + 1
+d1 <- Deriv(f,"x")                  # first derivative
+d2 <- D(D(f,"x"),"x")           # second derivative
+i <- 3
+factor <- 1e-5
+
+i1 <- i - factor * (d1)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -182,7 +216,7 @@ print(f(i_1[2]))
 
 
 #----------------
-## BONUS
+## BONUS  --totally gave up
 
 RW <- arima.sim(model = list(order = c(0,1,0)), n=100)
 ts.plot(RW)

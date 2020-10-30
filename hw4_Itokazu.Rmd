@@ -92,14 +92,86 @@ Then we'll get something like this:
 
 <div style="text-align: justify">
 
-### Let's get things in order:
+\
 
-I could make it work with ifelse's in a function:
+### Let's get things in order:
 
 </div>
 
+```{r order, eval=FALSE}
+
+for (i in (1:length(a))) {
+     for (j in (1:(length(a)-1))) {
+          if (a[j] > a[j+1]) {
+               swap(a[j], a[j+1])
+          }
+     }
+}
+
+``` 
 
 
+With that, if I provide a vector *a = c(9,5,2,6,3,-9,4,5,-6,2,8,34,89,6)* as an input, it will turn out as *a = c(-9,-6,2,2,3,4,5,5,6,6,8,9,34,89)* afterwards!!
+
+<div style="text-align: justify">
+
+\
+
+### To the bare minimum:
+
+</div>
+
+```{r q4}
+
+f <- function(x) x^2 - 2*x + 1
+threshold<- .Machine$double.eps^0.25
+delta <- 0
+x1 = -1
+x3 = 3
+set.seed(123)
+x2 = runif(1, x1, x3)
+
+i <- c(x1, x2, x3)
+i1 <- c(0, 0, 0)
+
+while(delta > threshold || delta == 0){
+
+        if((i[2]-i[1]) > (i[3] - i[2])){
+
+                x4 <- runif(1, i[1], i[2])
+
+                if((f(x4) < f(i[2]))){
+                        i1 <- c(i[1], x4, i[2])
+                } else {
+                        i1 <- c(x4, i[2], i[3])
+                }
+        } else {
+                x4 <- runif(1, i[2], i[3])
+
+                if((f(x4) < f(i[2]))){
+                        i1 <- c(i[2], x4, i[3])
+                } else {
+                        i1 <- c(i[1], i[2], x4)
+                }
+        }
+
+        delta <- abs(f(i[2]) - f(i1[2]))
+
+        i = i1
+}
+
+print(c(i1[2],f(i1[2])))
+
+```
+
+.. And the values printed above are the central point in the last triplet (\(i(n),x_2\)) and its respective function value (\(f(x_2)\)).
+
+
+<div class="textbox" id="minumumcomment">
+
+I'm sorry I made you feel like you didn't explained well enough.! I had a hard time getting this homework done because of my own individual things, not because of the class, or you. I'm sorry if I gave out the wrong impression.!
+
+</div>
 
 
 
