@@ -65,54 +65,116 @@ print(a)
 #q3:
 
 f <- function(x) x^2 - 2*x +1
-tol <- 1e-5
-dif <- tol - 1
+tol <- 0.001
+dif <- tol + 1
 x1 = -1
 x3 = 3
 f_old <- f(x1)
 
+#---survival group:
 
-
-
-#---- q4: survival group:
-
-while(dif<tol){
-                x2 <- runif(1, x1,x3)
-                f_new <- f(x2)
-
-                b <- abs(x3 - x2)
-                a <- abs(x2 - x1)
-
-                dif_temp <- f_old - f_new
-
-                if(dif_temp >0){
-                        dif <- dif_temp
-                        f_old <- f_new
-                }
-                        if(a>b){
-                                x3 <- x2
-                        } else {
-                                x1 <- x2
-                        }
-}
-
-print(f_new)
-
-#-----
+func <- function(x) x^2 - 2*x +1
+tol <- 1e-5
+dif <- tol + 1
+x1 = -1
+x3 = 3
 set.seed(123)
-x2 <- runif(1, -1, 3)
+x2 <- runif(1, x1, x3)
 
-f1 <- f(x1)
-f2 <- f(x2)
-f3 <- f(x3)
+func_old <- c(x1,x2,x3)
+
+while(dif > tol || dif == 0){
+
+        if((x2-x1) > (x3 - x2)){
+                x4 <- runif(1, x1, x2)
+        } else {
+                x4 <- runif(1, x2, x3)
+        }
+
+        if((func(x4) < func(x2)) && (func(x4) < func(x3))){
+                middle_new <- x4
+                #func_new <- c(x2, x4, x3)
+                x1 <- x2
+                x2 <- x4
+                x3 <- x3
+        } else {
+                middle_new <- x2
+                #func_new <- c(x1, x2, x4)
+                x1 <- x1
+                x2 <- x2
+                x3 <- x4
+        }
+
+        middle_old <- func_old[2]
+        dif <- abs(func(middle_old) - func(x2))
+
+        func_old = c(x1,x2,x3)
+
+        print(func_old)
+        print(func(func_old))
 
 
-
-if (b > a) {
-     x4 <- runif(1, x2, x3)
-} else {
-     x4 <- runif(1, x1, x2)
 }
+
+print(middle_new)
+print(func(middle_new))
+
+
+
+
+
+
+
+#--q3:
+
+f <- function(x) x^2 - 2*x + 1
+threshold<- .Machine$double.eps^0.25
+delta <- 0
+x1 = -1
+x3 = 3
+set.seed(666)
+x2 = runif(1, x1, x3)
+
+i <- c(x1, x2, x3)
+i_1 <- c(0, 0, 0)
+
+while(delta > threshold || delta == 0){
+
+        if((i[2]-i[1]) > (i[3] - i[2])){
+
+                x4 <- runif(1, i[1], i[2])
+
+                if((f(x4) < f(i[2]))){
+                        i_1 <- c(i[1], x4, i[2])
+                } else {
+                        i_1 <- c(x4, i[2], i[3])
+                }
+        } else {
+                x4 <- runif(1, i[2], i[3])
+
+                if((f(x4) < f(i[2]))){
+                        i_1 <- c(i[2], x4, i[3])
+                } else {
+                        i_1 <- c(i[1], i[2], x4)
+                }
+        }
+
+        delta <- abs(f(i[2]) - f(i_1[2]))
+
+        i = i_1
+}
+
+print(i_1[2])
+print(f(i_1[2]))
+
+
+
+
+
+
+
+
+
 
 
 
